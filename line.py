@@ -11,3 +11,5 @@ class Line:
         dy = self.p2.y - self.p1.y
 
         return (dx ** 2 + dy ** 2) ** 0.5
+
+        
