@@ -3,6 +3,7 @@ from line import Line
 from circle import Circle
 from rectangle import Rectangle
 from distance_between_shapes import distance
+from three_dimension_calculation import Sphere, Cylinder, Cuboid
 
 
 objects = {}
@@ -20,16 +21,30 @@ while True:
         break
 
     elif command == "help":
-        print("Create shapes using:")
+
+        print("2D Shapes:")
         print("p1 = Point(x, y)")
         print("l1 = Line(p1, p2)")
         print("c1 = Circle(center, radius)")
         print("r1 = Rectangle(p1, p2)")
         print()
-        print("Calculate distance using:")
+
+        print("3D Shapes:")
+        print("s1 = Sphere(x, y, z, radius)")
+        print("cy1 = Cylinder(x, y, z, radius, height)")
+        print("b1 = Cuboid(x, y, z, length, width, height)")
+        print()
+
+        print("2D Distance:")
         print("distance(shape1, shape2)")
+        print()
+
+        print("3D Calculations:")
+        print("shape.surface_area()")
+        print("shape.volume()")
 
     else:
+
         try:
 
             if "=" in command:
@@ -44,7 +59,10 @@ while True:
                         "Point": Point,
                         "Line": Line,
                         "Circle": Circle,
-                        "Rectangle": Rectangle
+                        "Rectangle": Rectangle,
+                        "Sphere": Sphere,
+                        "Cylinder": Cylinder,
+                        "Cuboid": Cuboid
                     },
                     objects
                 )
@@ -62,12 +80,15 @@ while True:
                         "Line": Line,
                         "Circle": Circle,
                         "Rectangle": Rectangle,
-                        "distance": distance
+                        "distance": distance,
+                        "Sphere": Sphere,
+                        "Cylinder": Cylinder,
+                        "Cuboid": Cuboid
                     },
                     objects
                 )
 
-                print(result)
+                print(f"{result:.2f}")
 
         except Exception as e:
             print("Error:", e)
