@@ -2,79 +2,72 @@ from point import Point
 from line import Line
 from circle import Circle
 from rectangle import Rectangle
+from distance_between_shapes import distance
 
 
-shape = input("Enter shape (point, line, circle, rectangle): ")
+objects = {}
 
-if shape == "point":
+print("|| Welcome to Geometric Calculator ||")
+print("Type 'help' for commands.")
+print("Type 'exit' to quit.")
 
-    x = float(input("Enter x: "))
-    y = float(input("Enter y: "))
+while True:
 
-    p1 = Point(x, y)
+    command = input("> ")
 
-    print("Point:", p1.x, p1.y)
+    if command == "exit":
+        print("Thanks!")
+        break
 
+    elif command == "help":
+        print("Create shapes using:")
+        print("p1 = Point(x, y)")
+        print("l1 = Line(p1, p2)")
+        print("c1 = Circle(center, radius)")
+        print("r1 = Rectangle(p1, p2)")
+        print()
+        print("Calculate distance using:")
+        print("distance(shape1, shape2)")
 
-elif shape == "line":
+    else:
+        try:
 
-    x1 = float(input("Enter x1: "))
-    y1 = float(input("Enter y1: "))
+            if "=" in command:
 
-    x2 = float(input("Enter x2: "))
-    y2 = float(input("Enter y2: "))
+                name, expression = command.split("=", 1)
 
-    p1 = Point(x1, y1)
-    p2 = Point(x2, y2)
+                name = name.strip()
 
-    l1 = Line(p1, p2)
+                shape = eval(
+                    expression.strip(),
+                    {
+                        "Point": Point,
+                        "Line": Line,
+                        "Circle": Circle,
+                        "Rectangle": Rectangle
+                    },
+                    objects
+                )
 
-    print("Length:", l1.length())
+                objects[name] = shape
 
+                print(name, "created")
 
-elif shape == "circle":
+            else:
 
-    x = float(input("Enter center x: "))
-    y = float(input("Enter center y: "))
+                result = eval(
+                    command,
+                    {
+                        "Point": Point,
+                        "Line": Line,
+                        "Circle": Circle,
+                        "Rectangle": Rectangle,
+                        "distance": distance
+                    },
+                    objects
+                )
 
-    radius = float(input("Enter radius: "))
+                print(result)
 
-    center = Point(x, y)
-
-    c1 = Circle(center, radius)
-
-    print("Area:", c1.area())
-    print("Circumference:", c1.circumference())
-
-
-elif shape == "rectangle":
-
-    x1 = float(input("Enter x1: "))
-    y1 = float(input("Enter y1: "))
-
-    x2 = float(input("Enter x2: "))
-    y2 = float(input("Enter y2: "))
-
-    x3 = float(input("Enter x3: "))
-    y3 = float(input("Enter y3: "))
-
-    x4 = float(input("Enter x4: "))
-    y4 = float(input("Enter y4: "))
-
-    p1 = Point(x1, y1)
-    p2 = Point(x2, y2)
-    p3 = Point(x3, y3)
-    p4 = Point(x4, y4)
-
-    length = p1.distance(p2)
-    width = p1.distance(p4)
-
-    area = length * width
-    perimeter = 2 * (length + width)
-
-    print("Area:", area)
-    print("Perimeter:", perimeter)
-
-
-else:
-    print("Invalid shape")
+        except Exception as e:
+            print("Error:", e)
