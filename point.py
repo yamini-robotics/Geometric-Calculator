@@ -6,7 +6,6 @@ class Point:
 
 
     def distance(self, p):
-        print(p)
 
         dx = p.x - self.x
         dy = p.y - self.y
